@@ -1,0 +1,13 @@
+<group name="pflog">
+  <rule id="110000" level="0">
+	  <!-- <category>firewall</category>-->
+    <decoded_as>pflog</decoded_as>
+    <description>Grouping of pflog rules.</description>
+  </rule>
+
+  <rule id="110001" level="9">
+     <if_sid>110000</if_sid>
+     <action>block</action>
+    <description>pf blocked an malicious IP</description>
+  </rule>
+</group>
