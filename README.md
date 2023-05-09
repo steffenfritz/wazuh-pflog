@@ -1,5 +1,5 @@
 # wazuh-pflog
-Decoder and rule example for using Wazuh XDR with pflog
+Decoder and rule example for using Wazuh XDR with pflog. The decoder just works with TCP at the moment. Adding UDP should be easy from the example.
 
 The input generated for the decoder has to be created with _tcpdump -nettr /var/log/pflog_
 
