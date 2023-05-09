@@ -1,0 +1,30 @@
+<!--
+  -  Pflog decoders
+  -  Author Steffen Fritz
+  -  Copyright (C) 2023, Steffen Fritz.
+  -  This program is a free software; you can redistribute it and/or modify it under the terms of GPLv3.
+-->
+
+<!--
+- Will extract src IP, src Port, dst IP, dst Port, flags, action, direction and size from the pfsense logs, filtered/created with tcpdump.
+-->
+
+<!-- PFLOG. Created with tcpdump -nettr /var/log/pflog
+Example input:
+1683622762.679186 rule 5/0(match): block in on em0: 299.218.206.69.25788 > 10.10.1.20.443: Flags [S], seq 2519420065, win 42340, options [mss 1460,[|tcp]>
+-->
+<decoder name="pflog">
+	<prematch>rule (\d+)/(\d+)\((\S+)\):</prematch>
+</decoder>
+
+<decoder name="pflog-child">
+  <parent>pflog</parent>
+  <regex>(\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d.\d\d\d\d\d\d)</regex>
+  <order>timestamp</order>
+</decoder>
+
+<decoder name="pflog-child">
+  <parent>pflog</parent>
+  <regex>rule (\d+)/(\d+)\((\S+)\): (\S+) (\S+) on (\S+): (\d+.\d+.\d+.\d+).(\d+) \p (\d+.\d+.\d+.\d+).(\d+): Flags (\S+), seq (\d+)</regex>
+  <order>rule0,rule1,match,action,direction,interface,srcip,srcport,dstip,dstport,flags,size</order>
+</decoder>
