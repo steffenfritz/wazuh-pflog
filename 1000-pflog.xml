@@ -8,6 +8,6 @@
   <rule id="110001" level="9">
      <if_sid>110000</if_sid>
      <action>block</action>
-    <description>pf blocked an malicious IP</description>
+    <description>pf blocked a malicious IP</description>
   </rule>
 </group>
